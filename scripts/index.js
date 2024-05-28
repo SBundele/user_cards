@@ -80,7 +80,13 @@ function addToCart(userId){
 
   let userDetail = user.find((users) => users.id === userId)
   
-  cart.push(userDetail)
+  let userAlreadyInCart = cart.find((user) => user.id === userId)
+
+  if (userAlreadyInCart){
+    userAlreadyInCart.quantity++
+  } else{
+    cart.push({...userDetail, quantity: 1})
+  }
   
   localStorage.setItem("cart", JSON.stringify(cart))
 

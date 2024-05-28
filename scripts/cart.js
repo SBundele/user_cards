@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("container");
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -16,7 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
       div.innerHTML = `
         <p><span>Name:</span> ${user.name}</p>
         <p><span>Email:</span> ${user.email}</p>
-        <button>Delete</button>
+        <p><span>Quantity:</span> ${user.quantity}</p>
+        <button onclick="removeUser(${user.id})">Delete</button>
     `;
       container.append(div);
     }
@@ -25,3 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
       addUser(element);
     });
 })
+
+
+function removeUser(userId) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart = cart.filter((item) => item.id !== userId);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  location.reload()
+}
